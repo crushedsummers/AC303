@@ -4,6 +4,7 @@ $(document).ready(function() {
 	var score = 0;
 	var startScore = false;
 	var prevScore = 0
+	var aiChallenge = 0.1;
 
 	//VARIABLES/CONSTS
 	const PI = Math.PI;
@@ -40,8 +41,23 @@ $(document).ready(function() {
 		height: 100,
 		update: function() {
 			//ai hit balls, ai follow ball
-			let target = ball.y - (this.height - ball.size)/2;
-			this.y += (target - this.y) * 0.1;
+			let target;
+			if(ball.speedy >2){
+				target = ball.y - ((this.height - ball.size))/4;
+			}
+			else if(ball.speedy<-2){
+				target = ball.y - (this.height + (ball.size))/4;
+			}
+			else if(ball.speedy >4){
+				target = ball.y - ((this.height - ball.size))/8;
+			}
+			else if(ball.speedy<-4){
+				target = ball.y - (this.height + (ball.size))/8;
+			}
+			else{
+				target = ball.y - ((this.height - ball.size))/2;
+			}
+			this.y += (target - this.y) * aiChallenge;
 		},
 		draw: function() {
 			ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -53,14 +69,14 @@ $(document).ready(function() {
 		size: 20,
 		speedx: null,
 		speedy: null,
-		speed: 10,
+		speed: 5,
 		update: function() {
 			this.x += this.speedx;
 			this.y += this.speedy;
 
 			//check collision
 			//top and bottom boundaries 
-			if(this.y >= HEIGHT || this.y <= 0){
+			if(this.y >= (HEIGHT-ball.size) || this.y <= 0){
 				this.speedy *= -1;
 			}
 
@@ -135,6 +151,7 @@ $(document).ready(function() {
 		startScore = false;
 		prevScore = 0;
 		player.height = 100;
+		ball.speed = 5;
 
 		// Change title
 		$("h1").html("Pong");
@@ -144,7 +161,7 @@ $(document).ready(function() {
 		player.y = (HEIGHT-player.height)/2;
 
 		//enemy position
-		ai.x = 670;
+		ai.x = 660;
 		ai.y = (HEIGHT-ai.height)/2;
 
 		//ball position
@@ -170,6 +187,7 @@ $(document).ready(function() {
 	}
 
 	function draw(){
+		console.log(ball.speedy);
 		ctx.fillRect(0,0,WIDTH,HEIGHT);
 
 		ctx.save();
@@ -196,7 +214,6 @@ $(document).ready(function() {
 			 ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
 			if (score < 10){
 				ctx.fillText(score, (WIDTH/2)-45, (HEIGHT/2)+57);
-				console.log(player.height);
 			}
 			else {
 				ctx.fillText(score, (WIDTH/2)-94, (HEIGHT/2)+57);
@@ -205,11 +222,13 @@ $(document).ready(function() {
 		}
 		WriteCanvasText()
 
-		//CHALLENGE: limit players size
+		//CHALLENGES!
 		if(score != prevScore){
 			player.height = player.height - (score*0.5);
+			aiChallenge = 0.1+(score*0.1);
+			ball.speed = ball.speed + 1;
 			prevScore++;
-			console.log("prev score is:" +prevScore);
+			console.log("ball speed is: "+ball.speed+", ai speed is: "+aiChallenge);
 		}
 
 		ctx.restore();
