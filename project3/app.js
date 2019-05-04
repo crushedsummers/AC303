@@ -1,6 +1,9 @@
 $(document).ready(function() {
 	var ctx = document.getElementById("canvas").getContext("2d");
 	var gameOver = false;
+	var score = 0;
+	var startScore = false;
+	var prevScore = 0
 
 	//VARIABLES/CONSTS
 	const PI = Math.PI;
@@ -90,6 +93,9 @@ $(document).ready(function() {
 				this.speedy = this.speed * Math.sin(phi);
 
 				if(other == ai) this.speedx *= -1;
+				if (other == player && startScore == true) {
+					score += 1;
+				}
 			}
 
 			if(this.x > WIDTH || this.x < -this.size){
@@ -125,6 +131,10 @@ $(document).ready(function() {
 
 	function init(){
 		gameOver = false;
+		score = 0;
+		startScore = false;
+		prevScore = 0;
+		player.height = 100;
 
 		// Change title
 		$("h1").html("Pong");
@@ -179,9 +189,32 @@ $(document).ready(function() {
 			y+=step;
 		}
 
+		//score
+		const prepareFontLoad = (fontList) => Promise.all(fontList.map(font => document.fonts.load(font )))
+		async function WriteCanvasText() {
+			 ctx.font="100px 'Press Start 2P'"
+			 ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+			if (score < 10){
+				ctx.fillText(score, (WIDTH/2)-45, (HEIGHT/2)+57);
+				console.log(player.height);
+			}
+			else {
+				ctx.fillText(score, (WIDTH/2)-94, (HEIGHT/2)+57);
+			}
+
+		}
+		WriteCanvasText()
+
+		//CHALLENGE: limit players size
+		if(score != prevScore){
+			player.height = player.height - (score*0.5);
+			prevScore++;
+			console.log("prev score is:" +prevScore);
+		}
+
 		ctx.restore();
-		
 	}
+	
 
 	$(document).on("keyup", function() {
 		keyPressed = null;
@@ -190,11 +223,13 @@ $(document).ready(function() {
 	//if function needs input, use e!!
 	$(document).on("keydown", function(e){
 		keyPressed = e.which;
+		//if(keyPressed == UP_KEY || keyPressed == DOWN_KEY) 
+			startScore = true;
 	});
 	$("button").on("click", function() {
 		$(this).hide();
 		init();
-	})
+	});
 
 	main();
 });

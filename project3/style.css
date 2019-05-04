@@ -29,3 +29,10 @@ h1{
 	margin-top: 0;
 	color: white;
 }
+
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Press Start 2P'), url('https://fonts.gstatic.com/s/pressstart2p/v7/e3t4euO8T-267oIAQAu6jDQyK3nVivNm4I81.woff2');
+}
