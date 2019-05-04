@@ -223,8 +223,7 @@ $(document).ready(function() {
 	//if function needs input, use e!!
 	$(document).on("keydown", function(e){
 		keyPressed = e.which;
-		//if(keyPressed == UP_KEY || keyPressed == DOWN_KEY) 
-			startScore = true;
+		if(keyPressed == UP_KEY || keyPressed == DOWN_KEY) startScore = true;
 	});
 	$("button").on("click", function() {
 		$(this).hide();
