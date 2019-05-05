@@ -4,7 +4,7 @@ $(document).ready(function() {
 	var score = 0;
 	var startScore = false;
 	var prevScore = 0
-	var aiChallenge = 0.1;
+	//var aiChallenge = 0.1;
 
 	//VARIABLES/CONSTS
 	const PI = Math.PI;
@@ -57,7 +57,8 @@ $(document).ready(function() {
 			else{
 				target = ball.y - ((this.height - ball.size))/2;
 			}
-			this.y += (target - this.y) * aiChallenge;
+			this.y += (target - this.y) * 0.1;
+			//this.y += (target - this.y) * aiChallenge;
 		},
 		draw: function() {
 			ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -227,8 +228,8 @@ $(document).ready(function() {
 		if(score != prevScore){
 			//player.height = player.height - (score*0.5);
 			//ai.height = ai.height - (score*0.5);
-			aiChallenge = 0.1+(score*0.1);
-			ball.speed = ball.speed + 1;
+			// aiChallenge = 0.1+(score*0.1);
+			// ball.speed = ball.speed + 1;
 			prevScore++;
 			console.log("ball speed is: "+ball.speed+", ai speed is: "+aiChallenge);
 		}
