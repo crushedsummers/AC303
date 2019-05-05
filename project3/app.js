@@ -151,6 +151,7 @@ $(document).ready(function() {
 		startScore = false;
 		prevScore = 0;
 		player.height = 100;
+		ai.height = 100;
 		ball.speed = 5;
 
 		// Change title
@@ -224,7 +225,8 @@ $(document).ready(function() {
 
 		//CHALLENGES!
 		if(score != prevScore){
-			player.height = player.height - (score*0.5);
+			//player.height = player.height - (score*0.5);
+			//ai.height = ai.height - (score*0.5);
 			aiChallenge = 0.1+(score*0.1);
 			ball.speed = ball.speed + 1;
 			prevScore++;
