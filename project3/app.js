@@ -70,7 +70,7 @@ $(document).ready(function() {
 		size: 20,
 		speedx: null,
 		speedy: null,
-		speed: 5,
+		speed: 10,
 		update: function() {
 			this.x += this.speedx;
 			this.y += this.speedy;
@@ -153,7 +153,7 @@ $(document).ready(function() {
 		prevScore = 0;
 		player.height = 100;
 		ai.height = 100;
-		ball.speed = 5;
+		ball.speed = 10;
 
 		// Change title
 		$("h1").html("Pong");
