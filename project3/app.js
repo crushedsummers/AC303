@@ -151,8 +151,8 @@ $(document).ready(function() {
 		score = 0;
 		startScore = false;
 		prevScore = 0;
-		player.height = 100;
-		ai.height = 100;
+		// player.height = 100;
+		// ai.height = 100;
 		ball.speed = 10;
 
 		// Change title
@@ -231,7 +231,7 @@ $(document).ready(function() {
 			// aiChallenge = 0.1+(score*0.1);
 			// ball.speed = ball.speed + 1;
 			prevScore++;
-			console.log("ball speed is: "+ball.speed+", ai speed is: "+aiChallenge);
+			//console.log("ball speed is: "+ball.speed+", ai speed is: "+aiChallenge);
 		}
 
 		ctx.restore();
