@@ -151,8 +151,8 @@ $(document).ready(function() {
 		score = 0;
 		startScore = false;
 		prevScore = 0;
-		// player.height = 100;
-		// ai.height = 100;
+		player.height = 100;
+		ai.height = 100;
 		ball.speed = 5;
 
 		// Change title
