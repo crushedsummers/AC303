@@ -231,7 +231,7 @@ $(document).ready(function() {
 			aiChallenge = 0.1+(score*0.1);
 			ball.speed = ball.speed + 1;
 			prevScore++;
-			console.log("ball speed is: "+ball.speed);
+			console.log("ball speed is: "+ball.speed+" height is"+player.height);
 		}
 
 		ctx.restore();
