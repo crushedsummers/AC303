@@ -70,7 +70,7 @@ $(document).ready(function() {
 		size: 20,
 		speedx: null,
 		speedy: null,
-		speed: 5,
+		speed: 10,
 		update: function() {
 			this.x += this.speedx;
 			this.y += this.speedy;
@@ -151,9 +151,9 @@ $(document).ready(function() {
 		score = 0;
 		startScore = false;
 		prevScore = 0;
-		player.height = 100;
-		ai.height = 100;
-		ball.speed = 5;
+		// player.height = 100;
+		// ai.height = 100;
+		ball.speed = 10;
 
 		// Change title
 		$("h1").html("Pong");
@@ -227,11 +227,11 @@ $(document).ready(function() {
 		//CHALLENGES!
 		if(score != prevScore){
 			player.height = player.height - (score*0.5);
-			ai.height = ai.height - (score*0.5);
-			aiChallenge = 0.1+(score*0.1);
-			ball.speed = ball.speed + 1;
+			// ai.height = ai.height - (score*0.5);
+			// aiChallenge = 0.1+(score*0.1);
+			// ball.speed = ball.speed + 1;
 			prevScore++;
-			console.log("ball speed is: "+ball.speed+" height is"+player.height);
+			//console.log("ball speed is: "+ball.speed+" height is"+player.height);
 		}
 
 		ctx.restore();

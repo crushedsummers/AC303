@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Yeon+Sung');
+
+* {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 300px;
+	height: 300px;
+	font-family: 'Yeon Sung', cursive;
+}
+#container{
+	width: 290px;
+	height: 590px;
+	border: 5px solid black;
+	background-color: #FADADB;
+	background-image: url(sources/kokichi.jpg);
+	background-size: 170%;
+	background-position: left;
+	background-blend-mode: overlay;
+}
+
+.images img {
+	width : 48px;
+	height: 48px;
+}
+
+.images {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+h3{
+	background-color: rgba(255,255,102,0.5);
+}
