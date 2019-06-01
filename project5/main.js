@@ -80,9 +80,9 @@ $(document).ready(function(){
       // Setting up the sprites
       alienSprite = [
         // Parameters for Sprite => (image's src, top left corner x, y, width, height)
-      [new Sprite(this, 0,0,22,16), new Sprite(this, 0,16,22,16)], //first alien, cropping img file
-      [new Sprite(this,22,0,16,16), new Sprite(this, 22,16,26,16)], //second alien
-      [new Sprite(this, 38,0,24,16), new Sprite(this, 38,16,24,16)], //third alien
+        [new Sprite(this, 0,0,22,16), new Sprite(this, 0,16,22,16)], //first alien, cropping img file
+        [new Sprite(this,22,0,16,16), new Sprite(this, 22,16,16,16)], //second alien
+        [new Sprite(this, 38,0,24,16), new Sprite(this, 38,16,24,16)], //third alien
       ]
 
       tankSprite = new Sprite(this, 62, 0, 22, 16);
@@ -177,40 +177,81 @@ $(document).ready(function(){
       
 
       // Check if the bullet hits the aliens (bullets from player)
+     if(bullet.speed_y < 0){
       for(let j = 0; j<aliens.length; j++){
         let alien = aliens[j];
-        if(Colliding(alien, bullet) && bullet.speed_y <0){
+        if(Colliding(alien, bullet)){
+          
+
         	aliens.splice(j,1);
         	j--;
+          //splice = remove
         	bullets.splice(i,1);
         	i--;
+          //make game more difficult when less aliens- make them faster 
+          switch (aliens.length) {
+            case 30: levelFrame = 40; break;
+            case 10: levelFrame = 20; break;
+            case 5: levelFrame = 15; break;
+            case 1: levelFrame = 6; break;
+            case 0: gameOver = true; win = true; break;
+          }
         }
-        
+        }
       }
 
       // Check if the bullet hits the tank
-      
+      if(Colliding(tank, bullet) && bullet.speed_y > 0){
+        gameOver = true;
     }
+  }
 
     // Aliens randomly shoot bullets by chance
+    if(Math.random()<0.03&& aliens.length>0){
+      let alien = aliens[Math.floor(Math.random()*(aliens.length))];
+      bullets.push(new Bullet(alien.x+alien.width*0.5,alien.y+alien.height,4,2,4,"#FFFFFF"));
+    }
     
 
     // Update the frame
-    
+    frames ++;
 
     // Check if the frames number reach the level's frame requirement for movement
 
-    if(/* Replace this line with the correct condition */){
+    if(frames%levelFrame ==0){
       // Switch "motion" variable between 0 & 1.
+      motion = (motion+1)%2;
 
+      let rightMost = 0
+      let leftMost = screen.width;
 
-      // Move the aliens
-      
+      for (let i = 0;i<aliens.length;i++){
+        let alien = aliens[i];
+        alien.x +=30 *alien_direction; // Move the aliens
+
+      rightMost = Math.max(rightMost, alien.x+alien.width);
+      leftMost = Math.min(leftMost, alien.x);
+      }
 
       // If aliens reach the edge of screen, switch their direction and move forward for one row
-      
+      let bottomMost = 0;
+      if(rightMost > screen.width - 30 || leftMost < 30){
+        alien_direction *= -1;
+        //for all aliens
+        for(let j = 0; j<aliens.length; j++){
+          let alien = aliens[j];
+          //reverse direction
+          alien.x += 30 * alien_direction;
+          alien.y += 30;
+
+          bottomMost = Math.max(bottomMost, alien.y - alien.height);
+        }
+      }
 
       // If the aliens reaches the cities, game over!
+      if(bottomMost > tank.y - 60){
+        gameOver = true;
+      }
       
     }
   }
@@ -265,7 +306,7 @@ $(document).ready(function(){
   	}
 //if the space key, fire bullet, make new bullet too
 		if(key == 32){
-			bullets.push(new Bullet(tank.x +10, tank.y, -8, 2, 6, "+FFFFFF"))
+			bullets.push(new Bullet(tank.x +10, tank.y, -8, 2, 6, "#FFFFFF"))
 		}
 	});
 
